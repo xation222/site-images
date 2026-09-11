@@ -1,31 +1,306 @@
-const images = [
-    { src: 'https://images.rawpixel.com/image_social_landscape/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L2ZsMjMxNDY4ODE2NTQtaW1hZ2Uta295NWoyeG4uanBn.jpg', category: 'nature' },
-    { src: 'https://freerangestock.com/sample/159439/flat-lay-of-tech-gadgets-and-stationery.jpg', category: 'tech' },
-    { src: 'https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcGR2YW5nb2doLXNudmdyb2IuanBn.jpg', category: 'art' },
-    { src: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/c280be2d-de9f-469f-85f8-2effee43ee0c/dg6tc2s-d20415e0-37ec-4ff7-b92f-6bb38154fe88.jpg/v1/fill/w_900,h_450,q_75,strp/beautiful_nature_03_by_jonadav_dg6tc2s-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2MyODBiZTJkLWRlOWYtNDY5Zi04NWY4LTJlZmZlZTQzZWUwY1wvZGc2dGMycy1kMjA0MTVlMC0zN2VjLTRmZjctYjkyZi02YmIzODE1NGZlODguanBnIiwiaGVpZ2h0IjoiPD00NTAiLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLndhdGVybWFyayJdLCJ3bWsiOnsicGF0aCI6Ilwvd21cL2MyODBiZTJkLWRlOWYtNDY5Zi04NWY4LTJlZmZlZTQzZWUwY1wvam9uYWRhdi00LnBuZyIsIm9wYWNpdHkiOjk1LCJwcm9wb3J0aW9ucyI6MC40NSwiZ3Jhdml0eSI6ImNlbnRlciJ9fQ.k1TPm38hiXrvpXaZREeXJSpm2QN9M6c7-K8jczPPiWo', category: 'nature' },
-    { src: 'https://live.staticflickr.com/6231/6230392886_6a1d8c0547_b.jpg', category: 'tech' },
-    { src: 'https://live.staticflickr.com/5678/22434439491_21ba238b3f_b.jpg', category: 'art' },
+const imagens = [
+    {
+        nome: "Aurora Lake",
+        arquivo: "aurora-lake.jpg",
+        descricao: "Um lago tranquilo iluminado pelas cores da aurora.",
+        tags: ["natureza", "paisagem", "calmo"]
+    },
+
+    {
+        nome: "Misty Forest",
+        arquivo: "misty-forest.jpg",
+        descricao: "Uma floresta coberta por uma camada suave de neblina.",
+        tags: ["natureza", "calmo", "paisagem"]
+    },
+
+    {
+        nome: "Moonlit City",
+        arquivo: "moonlit-city.jpg",
+        descricao: "A cidade durante uma noite silenciosa sob a luz da lua.",
+        tags: ["cidade", "noite"]
+    },
+
+    {
+        nome: "Summer Garden",
+        arquivo: "summer-garden.jpg",
+        descricao: "Um jardim colorido durante uma tarde tranquila de verão.",
+        tags: ["natureza", "calmo"]
+    },
+
+    {
+        nome: "Ocean Breeze",
+        arquivo: "ocean-breeze.jpg",
+        descricao: "O mar encontrando a costa em uma manhã serena.",
+        tags: ["natureza", "paisagem", "calmo"]
+    },
+
+    {
+        nome: "Autumn Path",
+        arquivo: "autumn-path.jpg",
+        descricao: "Um caminho cercado por árvores durante o outono.",
+        tags: ["natureza", "paisagem"]
+    },
+
+    {
+        nome: "Peaceful Mountains",
+        arquivo: "peaceful-mountains.jpg",
+        descricao: "Montanhas distantes sob um céu limpo e tranquilo.",
+        tags: ["natureza", "paisagem", "calmo"]
+    },
+
+    {
+        nome: "Rainy Window",
+        arquivo: "rainy-window.jpg",
+        descricao: "Gotas de chuva escorrendo por uma janela em uma noite calma.",
+        tags: ["noite", "calmo"]
+    },
+
+    {
+        nome: "Lavender Field",
+        arquivo: "lavender-field.jpg",
+        descricao: "Um campo de lavanda se estendendo até o horizonte.",
+        tags: ["natureza", "paisagem", "calmo"]
+    },
+
+    {
+        nome: "Starry Night",
+        arquivo: "starry-night.jpg",
+        descricao: "Um céu estrelado sobre uma paisagem silenciosa.",
+        tags: ["noite", "paisagem", "calmo"]
+    }
 ];
 
-const gallery = document.getElementById('gallery');
-const categoryFilter = document.getElementById('category');
 
-// Função para carregar as imagens
-function loadImages(filter = 'all') {
-    gallery.innerHTML = '';
-    const filteredImages = filter === 'all' ? images : images.filter(img => img.category === filter);
-    filteredImages.forEach(img => {
-        const imgElement = document.createElement('img');
-        imgElement.src = img.src;
-        imgElement.alt = img.category;
-        gallery.appendChild(imgElement);
+const gallery = document.getElementById("gallery");
+const searchInput = document.getElementById("searchInput");
+const clearSearch = document.getElementById("clearSearch");
+const resultCount = document.getElementById("resultCount");
+const emptyState = document.getElementById("emptyState");
+
+const modal = document.getElementById("imageModal");
+const modalImage = document.getElementById("modalImage");
+const modalTitle = document.getElementById("modalTitle");
+const modalDescription = document.getElementById("modalDescription");
+const modalTags = document.getElementById("modalTags");
+const modalClose = document.getElementById("modalClose");
+
+let tagAtual = "all";
+
+
+/* CRIA OS CARDS */
+
+function renderGallery() {
+
+    const pesquisa = searchInput.value
+        .toLowerCase()
+        .trim();
+
+
+    const resultados = imagens.filter(imagem => {
+
+        const correspondeTag =
+            tagAtual === "all" ||
+            imagem.tags.includes(tagAtual);
+
+
+        const textoBusca = [
+            imagem.nome,
+            imagem.descricao,
+            ...imagem.tags
+        ]
+            .join(" ")
+            .toLowerCase();
+
+
+        const correspondeBusca =
+            !pesquisa ||
+            textoBusca.includes(pesquisa);
+
+
+        return correspondeTag && correspondeBusca;
+
     });
+
+
+    gallery.innerHTML = "";
+
+
+    resultados.forEach(imagem => {
+
+        const card = document.createElement("article");
+
+        card.className = "card";
+
+        card.innerHTML = `
+
+            <img
+                class="card-image"
+                src="imagens/${imagem.arquivo}"
+                alt="${imagem.nome}"
+                loading="lazy"
+            >
+
+            <div class="card-info">
+
+                <h3 class="card-title">
+                    ${imagem.nome}
+                </h3>
+
+                <p class="card-description">
+                    ${imagem.descricao}
+                </p>
+
+                <div class="card-tags">
+
+                    ${imagem.tags.map(tag => `
+                        <span class="card-tag">
+                            #${tag}
+                        </span>
+                    `).join("")}
+
+                </div>
+
+            </div>
+        `;
+
+
+        card.addEventListener("click", () => {
+
+            abrirModal(imagem);
+
+        });
+
+
+        gallery.appendChild(card);
+
+    });
+
+
+    resultCount.textContent =
+        `${resultados.length} ${resultados.length === 1 ? "imagem" : "imagens"}`;
+
+
+    emptyState.classList.toggle(
+        "visible",
+        resultados.length === 0
+    );
+
+
+    clearSearch.style.display =
+        pesquisa ? "block" : "none";
 }
 
-// Evento para filtrar as imagens
-categoryFilter.addEventListener('change', (e) => {
-    loadImages(e.target.value);
+
+/* MODAL */
+
+function abrirModal(imagem) {
+
+    modalImage.src = `imagens/${imagem.arquivo}`;
+
+    modalImage.alt = imagem.nome;
+
+    modalTitle.textContent = imagem.nome;
+
+    modalDescription.textContent =
+        imagem.descricao;
+
+
+    modalTags.innerHTML = imagem.tags
+        .map(tag => `
+            <span class="card-tag">
+                #${tag}
+            </span>
+        `)
+        .join("");
+
+
+    modal.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+}
+
+
+function fecharModal() {
+
+    modal.classList.remove("active");
+
+    document.body.style.overflow = "";
+
+}
+
+
+/* PESQUISA */
+
+searchInput.addEventListener(
+    "input",
+    renderGallery
+);
+
+
+clearSearch.addEventListener(
+    "click",
+    () => {
+
+        searchInput.value = "";
+
+        renderGallery();
+
+        searchInput.focus();
+
+    }
+);
+
+
+/* TAGS */
+
+document.querySelectorAll(".tag").forEach(botao => {
+
+    botao.addEventListener("click", () => {
+
+        document
+            .querySelectorAll(".tag")
+            .forEach(tag => {
+                tag.classList.remove("active");
+            });
+
+
+        botao.classList.add("active");
+
+        tagAtual = botao.dataset.tag;
+
+        renderGallery();
+
+    });
+
 });
 
-// Carrega todas as imagens inicialmente
-loadImages();
+
+/* MODAL */
+
+modalClose.addEventListener(
+    "click",
+    fecharModal
+);
+
+
+modal.addEventListener("click", evento => {
+
+    if (evento.target === modal) {
+        fecharModal();
+    }
+
+});
+
+
+document.addEventListener("keydown", evento => {
+
+    if (evento.key === "Escape") {
+        fecharModal();
+    }
+
+});
+
+
+/* INICIALIZA */
+
+renderGallery();

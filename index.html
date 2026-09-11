@@ -1,32 +1,191 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeria de Imagens</title>
-    <link rel="stylesheet" href="styles.css">
+
+    <meta name="description"
+        content="Galeria de imagens com sistema de busca e tags. Explore e descubra novas imagens.">
+
+    <title>Serena — Galeria de Imagens</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <header>
-        <h1>Galeria de Imagens</h1>
-        <div class="filter">
-            <label for="category">Filtrar por categoria:</label>
-            <select id="category">
-                <option value="all">Todas</option>
-                <option value="nature">Natureza</option>
-                <option value="tech">Tecnologia</option>
-                <option value="art">Arte</option>
-            </select>
+
+    <header class="header">
+
+        <div class="header-content">
+
+            <a href="#" class="logo">
+                <span class="logo-icon">◈</span>
+                Serena
+            </a>
+
+            <nav class="nav">
+                <a href="#galeria">Galeria</a>
+                <a href="#tags">Tags</a>
+                <a href="#sobre">Sobre</a>
+            </nav>
+
         </div>
+
     </header>
+
+
     <main>
-        <div class="gallery" id="gallery">
-            <!-- As imagens serão carregadas dinamicamente pelo script -->
-        </div>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <span class="hero-label">GALERIA DE IMAGENS</span>
+
+                <h1>
+                    Encontre algo
+                    <span>inspirador.</span>
+                </h1>
+
+                <p>
+                    Explore uma coleção de imagens organizadas por tags.
+                    Pesquise, descubra e aproveite.
+                </p>
+
+                <div class="search-container">
+
+                    <span class="search-icon">⌕</span>
+
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Pesquisar por nome, descrição ou tag..."
+                        autocomplete="off"
+                    >
+
+                    <button id="clearSearch" aria-label="Limpar pesquisa">
+                        ×
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="gallery-section" id="galeria">
+
+            <div class="section-header">
+
+                <div>
+                    <span class="section-label">EXPLORAR</span>
+                    <h2>Galeria</h2>
+                </div>
+
+                <span class="result-count" id="resultCount">
+                    10 imagens
+                </span>
+
+            </div>
+
+
+            <div class="tags" id="tags">
+
+                <button class="tag active" data-tag="all">
+                    Todas
+                </button>
+
+                <button class="tag" data-tag="natureza">
+                    Natureza
+                </button>
+
+                <button class="tag" data-tag="cidade">
+                    Cidade
+                </button>
+
+                <button class="tag" data-tag="noite">
+                    Noite
+                </button>
+
+                <button class="tag" data-tag="paisagem">
+                    Paisagem
+                </button>
+
+                <button class="tag" data-tag="calmo">
+                    Calmo
+                </button>
+
+            </div>
+
+
+            <div class="gallery" id="gallery"></div>
+
+
+            <div class="empty-state" id="emptyState">
+
+                <div class="empty-icon">⌕</div>
+
+                <h3>Nenhuma imagem encontrada</h3>
+
+                <p>
+                    Tente pesquisar por outro nome ou tag.
+                </p>
+
+            </div>
+
+        </section>
+
     </main>
-    <footer>
-        <p>Feito com ❤️ por Xation</p>
+
+
+    <footer id="sobre">
+
+        <div class="footer-content">
+
+            <div>
+                <strong>Serena</strong>
+                <p>Uma pequena galeria para grandes descobertas.</p>
+            </div>
+
+            <span>Galeria local • 2026</span>
+
+        </div>
+
     </footer>
+
+
+    <!-- Modal da imagem -->
+
+    <div class="modal" id="imageModal">
+
+        <button class="modal-close" id="modalClose">
+            ×
+        </button>
+
+        <div class="modal-content">
+
+            <img id="modalImage" src="" alt="">
+
+            <div class="modal-info">
+
+                <div>
+                    <h2 id="modalTitle"></h2>
+                    <p id="modalDescription"></p>
+                </div>
+
+                <div class="modal-tags" id="modalTags"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
     <script src="script.js"></script>
+
 </body>
+
 </html>
